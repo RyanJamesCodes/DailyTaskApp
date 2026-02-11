@@ -17,11 +17,14 @@ struct DailyTask: Identifiable, Codable {
 @MainActor
 final class DailyTaskViewModel: ObservableObject {
     @Published var tasks: [DailyTask] = []
+    @Published private(set) var streakCount: Int = 0
     
     private let tasksKey = "daily_tasks"
     private let lastResetDateKey = "last_reset_date"
+    private let streakKey = "daily_streak"
     
     init() {
+        loadStreak()
         loadTasks()
         resetIfNeeded()
     }
@@ -60,6 +63,14 @@ final class DailyTaskViewModel: ObservableObject {
     
     // MARK: - Persistence
     
+    private func loadStreak() {
+        streakCount = UserDefaults.standard.integer(forKey: streakKey)
+    }
+    
+    private func saveStreak() {
+        UserDefaults.standard.set(streakCount, forKey: streakKey)
+    }
+    
     private func loadTasks() {
         let defaults = UserDefaults.standard
         
@@ -86,6 +97,8 @@ final class DailyTaskViewModel: ObservableObject {
         
         if let lastDate = defaults.object(forKey: lastResetDateKey) as? Date {
             if !calendar.isDate(lastDate, inSameDayAs: today) {
+                // A new day has started – update streak based on yesterday's completion
+                updateStreakForPreviousDay()
                 resetTasks()
             }
         } else {
@@ -96,5 +109,18 @@ final class DailyTaskViewModel: ObservableObject {
     
     private func saveLastResetDate(_ date: Date) {
         UserDefaults.standard.set(date, forKey: lastResetDateKey)
+    }
+    
+    private func updateStreakForPreviousDay() {
+        let hadTasks = !tasks.isEmpty
+        let allCompleted = hadTasks && tasks.allSatisfy { $0.isCompleted }
+        
+        if allCompleted {
+            streakCount += 1
+        } else {
+            streakCount = 0
+        }
+        
+        saveStreak()
     }
 }

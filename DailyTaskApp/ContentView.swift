@@ -19,6 +19,14 @@ struct ContentView: View {
                     Text(progressLabel)
                         .font(.subheadline)
                         .foregroundColor(.gray)
+                    
+                    HStack(spacing: 6) {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.orange)
+                        Text("Streak: \(viewModel.streakCount) day\(viewModel.streakCount == 1 ? "" : "s")")
+                            .font(.subheadline)
+                            .foregroundColor(.orange)
+                    }
                 }
                 .padding()
                 .background(Color(.systemGray6).opacity(0.15))
