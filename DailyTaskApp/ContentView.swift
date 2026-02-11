@@ -63,6 +63,7 @@ struct ContentView: View {
                         }
                         .listRowBackground(Color(.systemGray6).opacity(0.2))
                     }
+                    .onDelete(perform: viewModel.deleteTasks)
                 }
                 .scrollContentBackground(.hidden)
                 

@@ -53,6 +53,11 @@ final class DailyTaskViewModel: ObservableObject {
         saveLastResetDate(Date())
     }
     
+    func deleteTasks(at offsets: IndexSet) {
+        tasks.remove(atOffsets: offsets)
+        saveTasks()
+    }
+    
     // MARK: - Persistence
     
     private func loadTasks() {
