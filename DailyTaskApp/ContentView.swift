@@ -74,19 +74,6 @@ struct ContentView: View {
                     .onDelete(perform: viewModel.deleteTasks)
                 }
                 .scrollContentBackground(.hidden)
-                
-                // Manual reset button (optional)
-                Button(role: .destructive) {
-                    viewModel.resetTasks()
-                } label: {
-                    Text("Reset Today’s Tasks")
-                        .font(.subheadline)
-                        .padding(.vertical, 8)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6).opacity(0.2))
-                        .cornerRadius(8)
-                }
-                .padding([.horizontal, .bottom])
             }
             .padding(.top)
             .background(Color.black.ignoresSafeArea())

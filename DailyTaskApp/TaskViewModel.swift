@@ -49,9 +49,7 @@ final class DailyTaskViewModel: ObservableObject {
     }
     
     func resetTasks() {
-        for index in tasks.indices {
-            tasks[index].isCompleted = false
-        }
+        tasks.removeAll()
         saveTasks()
         saveLastResetDate(Date())
     }
