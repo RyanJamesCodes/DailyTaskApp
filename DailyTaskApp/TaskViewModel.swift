@@ -27,6 +27,7 @@ final class DailyTaskViewModel: ObservableObject {
         loadStreak()
         loadTasks()
         resetIfNeeded()
+        updateProgressNotifications()
     }
     
     var completionProgress: Double {
@@ -40,23 +41,27 @@ final class DailyTaskViewModel: ObservableObject {
         guard !trimmed.isEmpty else { return }
         tasks.append(DailyTask(title: trimmed))
         saveTasks()
+        updateProgressNotifications()
     }
     
     func toggleTask(_ task: DailyTask) {
         guard let index = tasks.firstIndex(where: { $0.id == task.id }) else { return }
         tasks[index].isCompleted.toggle()
         saveTasks()
+        updateProgressNotifications()
     }
     
     func resetTasks() {
         tasks.removeAll()
         saveTasks()
         saveLastResetDate(Date())
+        updateProgressNotifications()
     }
     
     func deleteTasks(at offsets: IndexSet) {
         tasks.remove(atOffsets: offsets)
         saveTasks()
+        updateProgressNotifications()
     }
     
     // MARK: - Persistence
@@ -120,5 +125,40 @@ final class DailyTaskViewModel: ObservableObject {
         }
         
         saveStreak()
+    }
+    
+    private func updateProgressNotifications() {
+        let percentage = Int(completionProgress * 100)
+        NotificationManager.shared.scheduleProgressNotifications(percentage: percentage)
+    }
+}
+
+func scheduleProgressNotifications(percentage: Int) {
+    let center = UNUserNotificationCenter.current()
+    
+    let times: [Int] = [8, 12, 16, 20] // 8am, 12pm, 4pm, 8pm
+    let identifiers = [
+        "daily_task_progress_8",
+        "daily_task_progress_12",
+        "daily_task_progress_16",
+        "daily_task_progress_20"
+    ]
+    
+    center.removePendingNotificationRequests(withIdentifiers: identifiers)
+    
+    for (index, hour) in times.enumerated() {
+        var dateComponents = DateComponents()
+        dateComponents.hour = hour
+        dateComponents.minute = 0
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Daily Task Progress"
+        content.body = "You're \(percentage)% done with today's tasks in Daily Task Tracker."
+        content.sound = .default
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: identifiers[index], content: content, trigger: trigger)
+        
+        center.add(request, withCompletionHandler: nil)
     }
 }

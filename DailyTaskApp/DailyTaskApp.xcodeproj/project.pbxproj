@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3572AA0F2F3E3D460045BEFA /* NotificationManager 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572AA0E2F3E3D460045BEFA /* NotificationManager 2.swift */; };
 		35C3C9DC2F3CD51300803FCD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C3C9DB2F3CD51300803FCD /* ContentView.swift */; };
 		35C3C9DF2F3CD54700803FCD /* DailyTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C3C9DE2F3CD54700803FCD /* DailyTaskTrackerApp.swift */; };
 		35C3C9E12F3CD55500803FCD /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C3C9E02F3CD55500803FCD /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3572AA0E2F3E3D460045BEFA /* NotificationManager 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationManager 2.swift"; sourceTree = "<group>"; };
 		35C3C9CD2F3CD43500803FCD /* DailyTaskApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyTaskApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C3C9DB2F3CD51300803FCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		35C3C9DE2F3CD54700803FCD /* DailyTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTaskTrackerApp.swift; sourceTree = "<group>"; };
@@ -44,6 +46,7 @@
 				35C3C9CF2F3CD43500803FCD /* DailyTaskApp */,
 				35C3C9CE2F3CD43500803FCD /* Products */,
 				35C3C9DB2F3CD51300803FCD /* ContentView.swift */,
+				3572AA0E2F3E3D460045BEFA /* NotificationManager 2.swift */,
 				35C3C9DE2F3CD54700803FCD /* DailyTaskTrackerApp.swift */,
 				35C3C9E02F3CD55500803FCD /* TaskViewModel.swift */,
 			);
@@ -134,6 +137,7 @@
 			files = (
 				35C3C9DC2F3CD51300803FCD /* ContentView.swift in Sources */,
 				35C3C9E12F3CD55500803FCD /* TaskViewModel.swift in Sources */,
+				3572AA0F2F3E3D460045BEFA /* NotificationManager 2.swift in Sources */,
 				35C3C9DF2F3CD54700803FCD /* DailyTaskTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
